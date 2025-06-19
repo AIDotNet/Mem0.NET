@@ -70,13 +70,29 @@ public class Mem0Client : IDisposable
     }
 
     /// <summary>
-    /// 添加新记忆
+    /// 
     /// </summary>
+    /// <param name="messages"></param>
+    /// <param name="userId"></param>
+    /// <param name="agentId"></param>
+    /// <param name="appId"></param>
+    /// <param name="runId"></param>
+    /// <param name="memoryType">
+    /// Specifies the type of memory. Currently, only
+    /// `MemoryType.PROCEDURAL.value` ("procedural_memory") is explicitly handled for
+    /// creating procedural memories (typically requires 'agent_id'). Otherwise, memories
+    ///     are treated as general conversational/factual memories.memory_type (str, optional): Type of memory to create. Defaults to None. By default, it creates the short term memories and long term (semantic and episodic) memories. Pass "procedural_memory" to create procedural memories.</param>
+    /// <param name="metadata"></param>
+    /// <param name="filters"></param>
+    /// <param name="outputFormat"></param>
+    /// <param name="cancellationToken"></param>
     public async Task AddAsync(List<Message> messages,
         string? userId = null,
         string? agentId = null,
         string? appId = null,
         string? runId = null,
+        string? memoryType = null,
+        string? prompt = null,
         Dictionary<string, object>? metadata = null,
         Dictionary<string, object>? filters = null,
         string outputFormat = ".1",
@@ -91,7 +107,9 @@ public class Mem0Client : IDisposable
             ["metadata"] = metadata,
             ["filters"] = filters,
             ["output_format"] = outputFormat,
-            ["version"] = "v2"
+            ["version"] = "v2",
+            ["memory_type"] = memoryType,
+            ["prompt"] = prompt,
         };
 
         var payload = PreparePayload(messages, parameters);
@@ -192,7 +210,7 @@ public class Mem0Client : IDisposable
         var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
         return JsonSerializer.Deserialize<SearchResult>(responseContent, _jsonOptions);
     }
-    
+
     /// <summary>
     /// 更新记忆
     /// </summary>
@@ -339,12 +357,12 @@ public class Mem0Client : IDisposable
         try
         {
             var response =
-                await _httpClient.PostAsync($"reset/",null,
+                await _httpClient.PostAsync($"reset/", null,
                     cancellationToken);
             await EnsureSuccessStatusCodeAsync(response);
 
             await response.Content.ReadAsStringAsync(cancellationToken);
-            
+
             return new MessageResponse { Message = "All memories reset" };
         }
         catch (Exception ex)
