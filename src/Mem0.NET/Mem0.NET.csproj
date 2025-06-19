@@ -10,13 +10,18 @@
         <Description>Mem0 Client封装</Description>
         <Copyright>MIT</Copyright>
         <PackageProjectUrl>https://github.com/AIDotNet/Mem0.NET</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/AIDotNet/Mem0.NET/LICENSE</PackageLicenseUrl>
+        <PackageLicense>MIT</PackageLicense>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <RepositoryUrl>https://github.com/AIDotNet/Mem0.NET</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <None Include="..\..\README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
 
 </Project>
