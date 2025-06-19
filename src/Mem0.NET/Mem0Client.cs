@@ -78,13 +78,17 @@ public class Mem0Client : IDisposable
     /// <param name="appId"></param>
     /// <param name="runId"></param>
     /// <param name="memoryType">
-    /// Specifies the type of memory. Currently, only
-    /// `MemoryType.PROCEDURAL.value` ("procedural_memory") is explicitly handled for
-    /// creating procedural memories (typically requires 'agent_id'). Otherwise, memories
+    ///     Specifies the type of memory. Currently, only
+    ///     `MemoryType.PROCEDURAL.value` ("procedural_memory") is explicitly handled for
+    ///     creating procedural memories (typically requires 'agent_id'). Otherwise, memories
     ///     are treated as general conversational/factual memories.memory_type (str, optional): Type of memory to create. Defaults to None. By default, it creates the short term memories and long term (semantic and episodic) memories. Pass "procedural_memory" to create procedural memories.</param>
+    /// <param name="prompt"></param>
+    /// <param name="threshold">threshold (float, optional): Minimum score for a memory to be included in the results. Defaults to None.</param>
+    /// <param name="limit"></param>
     /// <param name="metadata"></param>
     /// <param name="filters"></param>
     /// <param name="outputFormat"></param>
+    /// <param name="inputParameters">插入input</param>
     /// <param name="cancellationToken"></param>
     public async Task AddAsync(List<Message> messages,
         string? userId = null,
@@ -93,9 +97,12 @@ public class Mem0Client : IDisposable
         string? runId = null,
         string? memoryType = null,
         string? prompt = null,
+        float? threshold = null,
+        int limit = 10,
         Dictionary<string, object>? metadata = null,
         Dictionary<string, object>? filters = null,
         string outputFormat = ".1",
+        Dictionary<string, object>? inputParameters = null,
         CancellationToken cancellationToken = default)
     {
         var parameters = new Dictionary<string, object>
@@ -110,7 +117,17 @@ public class Mem0Client : IDisposable
             ["version"] = "v2",
             ["memory_type"] = memoryType,
             ["prompt"] = prompt,
+            ["threshold"] = threshold,
+            ["limit"] = limit
         };
+
+        if (inputParameters != null)
+        {
+            foreach (var parameter in inputParameters)
+            {
+                parameters.Add(parameter.Key, parameter.Value);
+            }
+        }
 
         var payload = PreparePayload(messages, parameters);
         var json = JsonSerializer.Serialize(payload, _jsonOptions);
