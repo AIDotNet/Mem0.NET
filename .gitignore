@@ -3,3 +3,9 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+postgres_db
+neo4j_data
+history
+.idea
+.vs
+.env

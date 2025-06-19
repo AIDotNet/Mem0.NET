@@ -7,6 +7,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{102A7AA1-8EEE-4FB0-8198-56FC7CB9B4DB}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
+		docker-compose.yaml = docker-compose.yaml
+		.env = .env
+		.env.example = .env.example
+		.gitignore = .gitignore
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{17182FEA-4962-4AB6-91D6-50E2F2D8F9B8}"
