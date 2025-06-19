@@ -216,6 +216,22 @@ public class Mem0Client : IDisposable
     }
 
     /// <summary>
+    /// 搜索内存
+    /// </summary>
+    public async Task<SearchResult> SearchMemoriesAsync(SearchRequest request,
+        CancellationToken cancellationToken = default)
+    {
+        var json = JsonSerializer.Serialize(request, _jsonOptions);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PostAsync("search", content, cancellationToken);
+        await EnsureSuccessStatusCodeAsync(response);
+
+        var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
+        return JsonSerializer.Deserialize<SearchResult>(responseContent, _jsonOptions);
+    }
+    
+    /// <summary>
     /// 更新记忆
     /// </summary>
     public async Task<Memory> UpdateAsync(string memoryId,
@@ -358,8 +374,21 @@ public class Mem0Client : IDisposable
     /// </summary>
     public async Task<MessageResponse> ResetAsync(CancellationToken cancellationToken = default)
     {
-        await DeleteUsersAsync(cancellationToken: cancellationToken);
-        return new MessageResponse { Message = "Client reset successful. All users and memories deleted." };
+        try
+        {
+            var response =
+                await _httpClient.PostAsync($"reset/",null,
+                    cancellationToken);
+            await EnsureSuccessStatusCodeAsync(response);
+
+            await response.Content.ReadAsStringAsync(cancellationToken);
+            
+            return new MessageResponse { Message = "All memories reset" };
+        }
+        catch (Exception ex)
+        {
+            throw new Mem0ApiException("Error in ResetAsync", ex);
+        }
     }
 
     /// <summary>

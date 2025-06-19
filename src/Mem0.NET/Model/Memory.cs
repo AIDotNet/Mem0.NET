@@ -19,3 +19,12 @@ public class Memory
     [JsonPropertyName("updated_at")] public DateTime? UpdatedAt { get; set; }
     [JsonPropertyName("score")] public double? Score { get; set; }
 }
+
+
+public class SearchResult
+{
+    public Memory[] results { get; set; }
+    
+    public object[] relations { get; set; }
+}
+
