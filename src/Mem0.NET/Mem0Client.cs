@@ -178,47 +178,9 @@ public class Mem0Client : IDisposable
     }
 
     /// <summary>
-    /// 搜索记忆
-    /// </summary>
-    public async Task<List<Memory>> SearchAsync(string query,
-        string version = "",
-        string? userId = null,
-        string? agentId = null,
-        string? appId = null,
-        string? runId = null,
-        int? topK = null,
-        Dictionary<string, object>? filters = null,
-        Dictionary<string, object>? metadata = null,
-        CancellationToken cancellationToken = default)
-    {
-        var parameters = new Dictionary<string, object>
-        {
-            ["user_id"] = userId,
-            ["agent_id"] = agentId,
-            ["app_id"] = appId,
-            ["run_id"] = runId,
-            ["top_k"] = topK,
-            ["filters"] = filters,
-            ["metadata"] = metadata
-        };
-
-        var payload = new Dictionary<string, object> { ["query"] = query };
-        payload = payload.Concat(PrepareParams(parameters)).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-
-        var json = JsonSerializer.Serialize(payload, _jsonOptions);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-        var response = await _httpClient.PostAsync($"{version}/memories/search/", content, cancellationToken);
-        await EnsureSuccessStatusCodeAsync(response);
-
-        var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
-        return JsonSerializer.Deserialize<List<Memory>>(responseContent, _jsonOptions) ?? new List<Memory>();
-    }
-
-    /// <summary>
     /// 搜索内存
     /// </summary>
-    public async Task<SearchResult> SearchMemoriesAsync(SearchRequest request,
+    public async Task<SearchResult> SearchAsync(SearchRequest request,
         CancellationToken cancellationToken = default)
     {
         var json = JsonSerializer.Serialize(request, _jsonOptions);

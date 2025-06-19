@@ -1,6 +1,6 @@
 ﻿using Mem0.NET;
 
-var client = new Mem0Client("", "https://mem0.token-ai.cn/");
+var client = new Mem0Client("", "http://0.0.0.0:8000/");
 
 await client.AddAsync(new List<Message>()
 {
@@ -18,7 +18,7 @@ await client.AddAsync(new List<Message>()
 }, "alex");
 
 var query = "What can I cook for dinner tonight?";
-var response = await client.SearchMemoriesAsync(new SearchRequest()
+var response = await client.SearchAsync(new SearchRequest()
 {
     Query = query,
     UserId = "alex"
@@ -26,5 +26,5 @@ var response = await client.SearchMemoriesAsync(new SearchRequest()
 
 foreach (var memory in response.results)
 {
-    Console.WriteLine($"Memory ID: {memory.Id}");
+    Console.WriteLine($"Memory ID: {memory.Content}");
 }
