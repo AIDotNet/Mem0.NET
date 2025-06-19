@@ -17,13 +17,13 @@ public static class ServiceExtensions
         var options = new Mem0ClientOptions();
         configureOptions(options);
 
-        if (string.IsNullOrEmpty(options.BaseUrl))
+        if (string.IsNullOrEmpty(options.Host))
         {
             throw new ArgumentException("BaseUrl must be provided in Mem0ClientOptions.");
         }
 
-        services.AddScoped<Mem0Client>(_ => 
-            new Mem0Client(options.BaseUrl, options.ApiKey, options.HttpClient));
+        services.AddScoped<Mem0Client>(_ =>
+            new Mem0Client(options.ApiKey, options.Host, options.OrgId, options.ProjectId, options.HttpClient));
 
         return services;
     }
