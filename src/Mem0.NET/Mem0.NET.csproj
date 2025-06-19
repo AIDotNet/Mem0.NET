@@ -13,7 +13,6 @@
         <PackageLicenseUrl>https://github.com/AIDotNet/Mem0.NET/LICENSE</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/AIDotNet/Mem0.NET</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <AssemblyVersion>1.0.0</AssemblyVersion>
     </PropertyGroup>
 
     <ItemGroup>
