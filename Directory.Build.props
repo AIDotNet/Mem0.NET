@@ -1,0 +1,16 @@
+<Project>
+    <PropertyGroup>
+        <TargetFrameworks>net6.0;net7.0;net9.0;net8.0</TargetFrameworks>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <MicrosoftExtensionsVersion  Condition="'$(TargetFramework)' == 'net6.0'">6.0.0</MicrosoftExtensionsVersion>
+        <MicrosoftExtensionsVersion  Condition="'$(TargetFramework)' == 'net7.0'">7.0.0</MicrosoftExtensionsVersion>
+        <MicrosoftExtensionsVersion  Condition="'$(TargetFramework)' == 'net8.0'">8.0.0</MicrosoftExtensionsVersion>
+        <MicrosoftExtensionsVersion  Condition="'$(TargetFramework)' == 'net9.0'">9.0.0</MicrosoftExtensionsVersion>
+        
+    </PropertyGroup>
+
+    <PropertyGroup>
+    </PropertyGroup>
+
+    
+</Project>

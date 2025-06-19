@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>Mem0.NET Client</Title>
+        <Authors>AIDotNet</Authors>
+        <Description>Mem0 Client封装</Description>
+        <Copyright>MIT</Copyright>
+        <PackageProjectUrl>https://github.com/AIDotNet/Mem0.NET</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/AIDotNet/Mem0.NET/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/AIDotNet/Mem0.NET</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
+    </ItemGroup>
+
+</Project>
