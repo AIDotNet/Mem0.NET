@@ -16,4 +16,16 @@ public class SearchRequest
     [JsonPropertyName("agent_id")] public string? AgentId { get; set; }
 
     [JsonPropertyName("filters")] public Dictionary<string, object>? Filters { get; set; }
+    
+    /// <summary>
+    /// 搜索相似度阈值，范围从0到1，默认值为0.3
+    /// </summary>
+    [JsonPropertyName("threshold")]
+    public double Threshold { get; set; } = 0.3;
+    
+    /// <summary>
+    /// 搜索结果的最大数量，默认值为10
+    /// </summary>
+    [JsonPropertyName("limit")]
+    public int Limit { get; set; } = 10;
 }
